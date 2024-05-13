@@ -24,3 +24,30 @@ class Bank:
         self.balanse = 0
         self.props = None
         self.is_active = False
+
+    def register(self, name, surname, age, email):
+        self.name = name 
+        self.surname = surname
+        self.age = age
+        self.email = email
+        cursor.execute(f"""INSERT INTO customs (name, surname, age, email, balanse, props, is_active)
+                       VALUES ('{name}', '{surname}', '{age}', '{email}', 0, 0, True);""")
+        connect.commit()
+
+    def deposit(self, amount):
+        cursor.execute(f"""UPDATE customs SET balanse = balanse + {amount} WHERE email = '{self.email}'""")
+        connect.commit()
+        self.balanse += amount 
+
+    def minus(self, amount):
+        cursor.execute(f"""UPDATE customs SET balanse = balance - {amount} WEHER email = '{self.email}'""")
+        connect.commit()
+        if amount > self.balanse:
+            print("Извините, но на счету не осталось денег!")
+        
+        else:
+            self.balanse -= amount
+            print(f"Вы сняли {amount} \nВаш баланс {self.balanse}")
+
+
+     
