@@ -21,7 +21,7 @@ class Bank:
         self.surname = None 
         self.age = 0
         self.email = None
-        self.balanсe = 0
+        self.balance = 0
         self.props = None
         self.is_active = False
 
@@ -30,27 +30,27 @@ class Bank:
         self.surname = surname
         self.age = age
         self.email = email
-        cursor.execute(f"""INSERT INTO customs (name, surname, age, email, balanсe, props, is_active)
+        cursor.execute(f"""INSERT INTO customs (name, surname, age, email, balance, props, is_active)
                        VALUES ('{name}', '{surname}', '{age}', '{email}', 0, 0, True);""")
         connect.commit()
 
     def deposit(self, amount):
-        cursor.execute(f"""UPDATE customs SET balanse = balanсe + {amount} WHERE email = '{self.email}'""")
+        cursor.execute(f"""UPDATE customs SET balance = balance + {amount} WHERE email = '{self.email}'""")
         connect.commit()
-        self.balanсe += amount 
+        self.balance += amount 
 
     def minus(self, amount):
-        cursor.execute(f"""UPDATE customs SET balanse = balance - {amount} WEHER email = '{self.email}'""")
+        cursor.execute(f"""UPDATE customs SET balance = balance - {amount} WHERE email = '{self.email}'""")
         connect.commit()
-        if amount > self.balanсe:
+        if amount > self.balance:
             print("Извините, но на счету не осталось денег!")
         
         else:
-            self.balanсe -= amount
-            print(f"Вы сняли {amount} \nВаш баланс {self.balanсe}")
+            self.balance -= amount
+            print(f"Вы сняли {amount} \nВаш баланс {self.balance}")
 
     def __str__(self):
-        return f"Ваш текущий баланс: {self.balanсe}"
+        return f"Ваш текущий баланс: {self.balance}"
     
     def main(self):
         while True:
@@ -63,7 +63,7 @@ class Bank:
                 age = int(input("Введите Ваш возраст: "))
                 email = input("Введите Вашу почту: ")
                 print("Вы успешнго прошли регистрацию!")
-                self.registr(name,surname, age, email)
+                self.register(name,surname, age, email)
             elif command == 2:
                 if self.email:
                     print("Пополните баланс")
@@ -93,7 +93,3 @@ class Bank:
 
 bank = Bank()
 bank.main()
-   
-
-
-     
